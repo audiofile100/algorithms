@@ -23,7 +23,7 @@ public class Graph {
         this.vertices = vertices;
         map = new HashMap<>();
         for (int i = 0; i < vertices; i++) {
-            map.put(i, Node.builder().id(i).neighbors(new ArrayList<>()).outgoing(new ArrayList<>()).build());
+            map.put(i, Node.builder().id(i).label((char) (i + 'A')).neighbors(new ArrayList<>()).outgoing(new ArrayList<>()).build());
         }
     }
 
@@ -68,9 +68,7 @@ public class Graph {
     public void printNodes() {
         for (int i = 0; i < vertices; i++) {
             Node v = map.get(i);
-            System.out.println("vertex: " + i);
-            System.out.println("key: " + v.getKey());
-            System.out.println("len: " + v.getLen());
+            System.out.println("vertex: " + i + "\tlabel: " + v.getLabel() + "\tlen: " + v.getLen());
         }
     }
 }

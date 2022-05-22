@@ -13,13 +13,17 @@ import java.util.List;
 @Builder
 public class Node {
 
+    // identity
     private int id;
+    private char label;
+
+    // graph search
     private List<Node> neighbors;
     private int cost;       // cost from a start node
     private int group;      // group number for connected components
 
     // fast dijkstra
     private List<Edge> outgoing;
-    private int key;        // key = min(self.key, len(v) + weight(vw)) -> invariant used in heap
+    private int score;        // dijkstra score
     private int len;        // shortest path to self computed by the previous iteration
 }
