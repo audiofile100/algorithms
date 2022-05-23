@@ -3,19 +3,15 @@ package ds;
 public class Heap<T extends Comparable<T>> {
 
     private Object[] heap;
-    private int capacity;
-    private int size;
-    private int level;
+    private int capacity = 1;
+    private int size = 0;
+    private int level = 0;
 
     public Heap() {
-        size = 0;
-        level = 0;
-        capacity = 1;
         heap = new Object[capacity];
     }
 
     public Heap(int capacity) {
-        size = 0;
         this.capacity = capacity;
         heap = new Object[capacity];
     }
@@ -28,9 +24,9 @@ public class Heap<T extends Comparable<T>> {
         bubbleUp();
     }
 
+    @SuppressWarnings("unchecked")
     public T poll() {
         if (size <= 0) return null;
-        @SuppressWarnings("unchecked")
         T min = (T) heap[0];
         heap[0] = heap[--size];
         // decrease capacity
@@ -71,8 +67,8 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private void swap(int i, int j) {
-        @SuppressWarnings("unchecked")
         T temp = (T) heap[i];
         heap[i] = heap[j];
         heap[j] = temp;
