@@ -21,7 +21,7 @@ public class FastDijkstra {
 
     public void fastDijkstra(Graph g) {
 
-        // --- init keys
+        // --- init score
         g.getNode(0).setScore(0);
         heap.add(g.getNode(0));
         for (int i = 1; i < g.getVertices(); i++) {
