@@ -109,7 +109,7 @@ public class Heap<T extends Comparable<T>> {
         heap = temp;
     }
 
-    public void print() {
+    private void print() {
         for (int i = 0; i < size; i++) {
             System.out.print(heap[i] + " ");
         }
