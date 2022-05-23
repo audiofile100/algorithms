@@ -114,11 +114,4 @@ public class Heap<T extends Comparable<T>> {
         System.arraycopy(heap, 0, temp, 0, size);
         heap = temp;
     }
-
-    public void print() {
-        for (int i = 0; i < size; i++) {
-            System.out.print(i + ":" + heap[i] + " ");
-        }
-        System.out.println("\nsize: " + size + "\tcapacity: " + capacity + "\tlevel: " + level);
-    }
 }
