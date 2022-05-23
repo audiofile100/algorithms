@@ -88,7 +88,7 @@ public class Heap<T extends Comparable<T>> {
             return leftIdx;
         }
         if (rightIdx < size) {
-            return (((T)heap[leftIdx]).compareTo((T)heap[rightIdx]) < 0) ? leftIdx : rightIdx;
+            return ( ((T)heap[leftIdx]).compareTo((T)heap[rightIdx]) < 0 ) ? leftIdx : rightIdx;
         }
         return -1;
     }
