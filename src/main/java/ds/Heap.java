@@ -109,53 +109,10 @@ public class Heap<T extends Comparable<T>> {
         heap = temp;
     }
 
-    private void print() {
+    public void print() {
         for (int i = 0; i < size; i++) {
             System.out.print(heap[i] + " ");
         }
         System.out.println("\nsize: " + size + "\tcapacity: " + capacity + "\tlevel: " + level);
-    }
-
-    public static void main(String[] args) {
-
-        Heap<Integer> pq = new Heap<>();
-        pq.offer(4);
-        pq.print();
-
-        pq.offer(3);
-        pq.print();
-
-        pq.offer(5);
-        pq.print();
-
-        pq.offer(2);
-        pq.print();
-
-        pq.poll();
-        pq.print();
-
-        pq.poll();
-        pq.print();
-
-        pq.poll();
-        pq.print();
-
-        pq.poll();
-        pq.print();
-
-        pq.poll();
-        pq.print();
-
-        pq.offer(4);
-        pq.print();
-
-        pq.offer(3);
-        pq.print();
-
-        pq.offer(5);
-        pq.print();
-
-        pq.offer(2);
-        pq.print();
     }
 }
