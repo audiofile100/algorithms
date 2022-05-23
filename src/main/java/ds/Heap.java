@@ -37,6 +37,12 @@ public class Heap<T extends Comparable<T>> {
         return min;
     }
 
+    @SuppressWarnings("unchecked")
+    public T peek() {
+        if (size <= 0) return null;
+        return (T) heap[0];
+    }
+
     public int size() {
         return size;
     }
@@ -84,7 +90,7 @@ public class Heap<T extends Comparable<T>> {
         int leftIdx = 2 * idx + 1;
         int rightIdx = 2 * idx + 2;
 
-        if (leftIdx == size-1) {
+        if (rightIdx > size && leftIdx == size-1) {
             return leftIdx;
         }
         if (rightIdx < size) {
@@ -111,7 +117,7 @@ public class Heap<T extends Comparable<T>> {
 
     public void print() {
         for (int i = 0; i < size; i++) {
-            System.out.print(heap[i] + " ");
+            System.out.print(i + ":" + heap[i] + " ");
         }
         System.out.println("\nsize: " + size + "\tcapacity: " + capacity + "\tlevel: " + level);
     }
