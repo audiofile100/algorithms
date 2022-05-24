@@ -30,7 +30,7 @@ public class Heap<T extends Comparable<T>> {
         T min = (T) heap[0];
         heap[0] = heap[--size];
         // decrease capacity
-        if (size < capacity - level * 2 ) {
+        if (size < capacity - (int)Math.pow(2, level)) {
             decreaseCapacity();
         }
         bubbleDown();
