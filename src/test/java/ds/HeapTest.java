@@ -21,5 +21,7 @@ public class HeapTest {
         assertEquals(5, heap.poll());
 
         assertEquals(0, heap.size());
+
+        assertNull(heap.poll());
     }
 }

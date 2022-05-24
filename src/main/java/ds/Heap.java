@@ -90,7 +90,7 @@ public class Heap<T extends Comparable<T>> {
         int leftIdx = 2 * idx + 1;
         int rightIdx = 2 * idx + 2;
 
-        if (rightIdx > size && leftIdx == size-1) {
+        if (rightIdx > size && leftIdx <= size-1) {
             return leftIdx;
         }
         if (rightIdx < size) {
