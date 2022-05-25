@@ -1,5 +1,7 @@
 package ds;
 
+import ds.component.Edge;
+import ds.component.Node;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;

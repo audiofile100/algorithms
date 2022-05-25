@@ -1,4 +1,4 @@
-package ds;
+package ds.component;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,8 +1,8 @@
 package graph;
 
-import ds.Edge;
+import ds.component.Edge;
 import ds.Graph;
-import ds.Node;
+import ds.component.Node;
 
 import java.util.ArrayList;
 import java.util.Comparator;

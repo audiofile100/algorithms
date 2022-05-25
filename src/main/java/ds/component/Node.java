@@ -1,4 +1,4 @@
-package ds;
+package ds.component;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +16,16 @@ public class Node {
     // identity
     private int id;
     private char label;
+
+    // ctor
+    public Node(int id) {
+        this.id = id;
+    }
+
+    // binary trees
+    private Node parent;
+    private Node left;
+    private Node right;
 
     // graph search
     private List<Node> neighbors;
