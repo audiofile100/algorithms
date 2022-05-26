@@ -3,8 +3,9 @@ package ds;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+// possibly unbalanced
 public class Tree {
-    static class Node {
+    private static class Node {
         int key;
         Node parent;
         Node left;
@@ -102,6 +103,13 @@ public class Tree {
 
         tree.inOrder(root);
         System.out.println("size: " + tree.getSize());
+    }
+
+    // returns the ith-smallest node
+    public Node selectIth(int ith) {
+        // augment the node object to have size property
+        // of subtree including itself
+        return null;
     }
 
     public boolean delete(Node tree, int key) {
