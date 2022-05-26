@@ -15,13 +15,19 @@ public class Tree {
     }
 
     private final Node root;
+    private int size;
 
     public Node getRoot() {
         return root;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     public Tree(Integer[] data) {
         root = new Node(data[0]);
+        ++size;
         Deque<Node> curr = new ArrayDeque<>();
         curr.offer(root);
         int idx = 0;
@@ -36,12 +42,14 @@ public class Tree {
                 ptr.left = left;
                 left.parent = ptr;
                 curr.offer(left);
+                ++size;
             }
             if (rightIdx < data.length && data[rightIdx] != null) {
                 Node right = new Node(data[rightIdx]);
                 ptr.right = right;
                 right.parent = ptr;
                 curr.offer(right);
+                ++size;
             }
             ++idx;
         }
@@ -54,23 +62,24 @@ public class Tree {
         Tree tree = new Tree(data);
         Node root = tree.getRoot();
 
-        Tree.inOrder(root);
+        tree.inOrder(root);
 
-        System.out.println("height: " + Tree.height(root));
-        System.out.println("min: " + Tree.min(root).key);
-        System.out.println("max: " + Tree.max(root).key);
+        System.out.println("height: " + tree.height(root));
+        System.out.println("min: " + tree.min(root).key);
+        System.out.println("max: " + tree.max(root).key);
+        System.out.println("size: " + tree.getSize());
 
         int searchKey = 14;
-        Node search = Tree.search(root, searchKey);
+        Node search = tree.search(root, searchKey);
         if (search == null) {
             System.out.println(searchKey + " not found");
         }
 
-        Node pred = null;
-        Node succ = null;
+        Node pred;
+        Node succ;
         if (search != null) {
-            pred = Tree.predecessor(search);
-            succ = Tree.successor(search);
+            pred = tree.predecessor(search);
+            succ = tree.successor(search);
 
             String predecessorMsg = "predecessor for " + search.key + ": ";
             System.out.println((pred != null) ? predecessorMsg + pred.key : predecessorMsg + " none -> " + searchKey + " is already min");
@@ -80,26 +89,27 @@ public class Tree {
         }
 
         int insertKey = 9;
-        Node insert = Tree.insert(root, insertKey);
+        Node insert = tree.insert(root, insertKey);
         String insertMsg = "inserting " + insertKey + ": ";
         System.out.println((insert != null) ? insertMsg + "successful" : insertMsg + "unsuccessful");
 
-        Tree.inOrder(root);
+        tree.inOrder(root);
 
         int deleteKey = 9;
-        boolean isDelete = Tree.delete(root, deleteKey);
+        boolean isDelete = tree.delete(root, deleteKey);
         String deleteMsg = "deleting " + deleteKey + ": ";
         System.out.println((isDelete) ? deleteMsg + "successful" : deleteMsg + "unsuccessful" );
 
-        Tree.inOrder(root);
+        tree.inOrder(root);
+        System.out.println("size: " + tree.getSize());
     }
 
-    public static boolean delete(Node tree, int key) {
-        Node node = Tree.search(tree, key);     // the node to delete
+    public boolean delete(Node tree, int key) {
+        Node node = search(tree, key);     // the node to delete
         if (node == null) return false;
 
         if (node.left != null && node.right != null) {
-            Node pred = Tree.predecessor(node);
+            Node pred = predecessor(node);
             node.key = pred.key;
             node = pred;    // point to the node to delete
         }
@@ -112,6 +122,7 @@ public class Tree {
                 p.left = null;
             }
             node.parent = null;
+            --size;
             return true;
         }
 
@@ -125,22 +136,25 @@ public class Tree {
             node.right = null;
         }
         node.parent = null;
+        --size;
 
         return true;
     }
 
-    public static Node insert(Node tree, int key) {
+    public Node insert(Node tree, int key) {
         Node ptr = tree;
         Node next = new Node(key);
         while (ptr != null) {
             if (ptr.left == null && key < ptr.key) {
                 next.parent = ptr;
                 ptr.left = next;
+                ++size;
                 return next;
             }
             if (ptr.right == null && key >= ptr.key) {
                 next.parent = ptr;
                 ptr.right = next;
+                ++size;
                 return next;
             }
 
@@ -153,7 +167,7 @@ public class Tree {
         return null;
     }
 
-    public static Node successor(Node node) {
+    public Node successor(Node node) {
         if (node.right != null) {
             return min(node.right);
         }
@@ -167,7 +181,7 @@ public class Tree {
         return p;
     }
 
-    public static Node predecessor(Node node) {
+    public Node predecessor(Node node) {
         if (node.left != null) {
             return max(node.left);
         }
@@ -181,36 +195,36 @@ public class Tree {
         return p;
     }
 
-    public static Node max(Node node) {
+    public Node max(Node node) {
         if (node.right == null) return node;
         return max(node.right);
     }
 
-    public static Node min(Node node) {
+    public Node min(Node node) {
         if (node.left == null) return node;
         return min(node.left);
     }
 
-    public static Node search(Node tree, int key) {
+    public Node search(Node tree, int key) {
         if (tree == null) return null;
         if (tree.key == key) return tree;
         else if (tree.key < key) return search(tree.right, key);
         else return search(tree.left, key);
     }
 
-    public static int height(Node node) {
+    public int height(Node node) {
         if (node == null) return 0;
         int left = height(node.left) + 1;
         int right = height(node.right) + 1;
         return Math.max(left, right);
     }
 
-    public static void inOrder(Node node) {
-        Tree.inOrderHelper(node);
+    public void inOrder(Node node) {
+        inOrderHelper(node);
         System.out.println();
     }
 
-    private static void inOrderHelper(Node node) {
+    private void inOrderHelper(Node node) {
         if (node == null) return;
         inOrderHelper(node.left);
         System.out.print(node.key + " ");
