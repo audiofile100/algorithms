@@ -1,18 +1,26 @@
 package ds;
 
-import ds.component.Node;
-import lombok.NoArgsConstructor;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-@NoArgsConstructor
 public class Tree {
+    static class Node {
+        int key;
+        Node parent;
+        Node left;
+        Node right;
+        public Node(int key) {
+            this.key = key;
+        }
+    }
 
-    private Node root;
+    private final Node root;
 
-    public Node genTree(Integer[] data) {
+    public Node getRoot() {
+        return root;
+    }
 
+    public Tree(Integer[] data) {
         root = new Node(data[0]);
         Deque<Node> curr = new ArrayDeque<>();
         curr.offer(root);
@@ -25,112 +33,187 @@ public class Tree {
             Node ptr = curr.poll();
             if (leftIdx < data.length && data[leftIdx] != null) {
                 Node left = new Node(data[leftIdx]);
-                ptr.setLeft(left);
-                left.setParent(ptr);
+                ptr.left = left;
+                left.parent = ptr;
                 curr.offer(left);
             }
             if (rightIdx < data.length && data[rightIdx] != null) {
                 Node right = new Node(data[rightIdx]);
-                ptr.setRight(right);
-                right.setParent(ptr);
+                ptr.right = right;
+                right.parent = ptr;
                 curr.offer(right);
             }
-
             ++idx;
         }
-
-        return root;
     }
 
     public static void main(String[] args) {
 
         Integer[] data = { 8, 3, 10, 1, 6, null, 14, null, null, 4, 7, 13, null };
 
-        Tree tree = new Tree();
-        Node root = tree.genTree(data);
-        tree.inOrder(root);
+        Tree tree = new Tree(data);
+        Node root = tree.getRoot();
 
-        System.out.println("\nheight: " + tree.height(root));
-        Node search = tree.search(root, 20);
-        System.out.println((search != null) ? "search: " + search.getId() : "not found");
-        System.out.println("min: " + tree.min(root).getId());
-        System.out.println("max: " + tree.max(root).getId());
-        Node pred = tree.predecessor(root);
-        System.out.println((pred != null) ? "predecessor: " + pred.getId() : "none");
-        Node succ = tree.successor(root);
-        System.out.println((succ != null) ? "successor: " + succ.getId() : "none");
+        Tree.inOrder(root);
 
-        //Node ins = tree.insert(9);
-        //System.out.println((ins != null) ? "insert: " + ins.getId() : "error");
-        //tree.inOrder(root);
+        System.out.println("height: " + Tree.height(root));
+        System.out.println("min: " + Tree.min(root).key);
+        System.out.println("max: " + Tree.max(root).key);
+
+        int searchKey = 14;
+        Node search = Tree.search(root, searchKey);
+        if (search == null) {
+            System.out.println(searchKey + " not found");
+        }
+
+        Node pred = null;
+        Node succ = null;
+        if (search != null) {
+            pred = Tree.predecessor(search);
+            succ = Tree.successor(search);
+
+            String predecessorMsg = "predecessor for " + search.key + ": ";
+            System.out.println((pred != null) ? predecessorMsg + pred.key : predecessorMsg + " none -> " + searchKey + " is already min");
+
+            String successorMsg = "successor for " + search.key + ": ";
+            System.out.println((succ != null) ? successorMsg + succ.key : successorMsg + " none -> " + searchKey + " is already max");
+        }
+
+        int insertKey = 9;
+        Node insert = Tree.insert(root, insertKey);
+        String insertMsg = "inserting " + insertKey + ": ";
+        System.out.println((insert != null) ? insertMsg + "successful" : insertMsg + "unsuccessful");
+
+        Tree.inOrder(root);
+
+        int deleteKey = 9;
+        boolean isDelete = Tree.delete(root, deleteKey);
+        String deleteMsg = "deleting " + deleteKey + ": ";
+        System.out.println((isDelete) ? deleteMsg + "successful" : deleteMsg + "unsuccessful" );
+
+        Tree.inOrder(root);
     }
 
-    public Node insert(int key) {
-        Node ptr = root;
+    public static boolean delete(Node tree, int key) {
+        Node node = Tree.search(tree, key);     // the node to delete
+        if (node == null) return false;
+
+        if (node.left != null && node.right != null) {
+            Node pred = Tree.predecessor(node);
+            node.key = pred.key;
+            node = pred;    // point to the node to delete
+        }
+
+        Node p = node.parent;
+        if (node.left == null && node.right == null) {      // node is a leaf
+            if (p.key <= key) {
+                p.right = null;
+            } else {
+                p.left = null;
+            }
+            node.parent = null;
+            return true;
+        }
+
+        if (node.left != null) {
+            node.left.parent = p;
+            p.left = node.left;
+            node.left = null;
+        } else {
+            node.right.parent = p;
+            p.right = node.right;
+            node.right = null;
+        }
+        node.parent = null;
+
+        return true;
+    }
+
+    public static Node insert(Node tree, int key) {
+        Node ptr = tree;
         Node next = new Node(key);
         while (ptr != null) {
-            if (ptr.getLeft() == null && key < ptr.getId()) {
-                next.setParent(ptr);
-                ptr.setLeft(next);
+            if (ptr.left == null && key < ptr.key) {
+                next.parent = ptr;
+                ptr.left = next;
                 return next;
             }
-            if (ptr.getRight() == null && key >= ptr.getId()) {
-                next.setParent(ptr);
-                ptr.setRight(next);
+            if (ptr.right == null && key >= ptr.key) {
+                next.parent = ptr;
+                ptr.right = next;
                 return next;
             }
-            if (key < ptr.getId()) ptr = ptr.getLeft();
-            else ptr = ptr.getRight();
+
+            if (key < ptr.key) {
+                ptr = ptr.left;
+            } else {
+                ptr = ptr.right;
+            }
         }
         return null;
     }
 
-    public Node successor(Node ptr) {
-        if (ptr.getRight() != null) return min(ptr.getRight());
-        Node curr = ptr.getParent();
-        while (curr != null && curr.getId() < ptr.getId()) {
-            curr = curr.getParent();
+    public static Node successor(Node node) {
+        if (node.right != null) {
+            return min(node.right);
         }
-        return curr;
-    }
 
-    public Node predecessor(Node ptr) {
-        if (ptr.getLeft() != null) return max(ptr.getLeft());
-        Node curr = ptr.getParent();
-        while (curr != null && curr.getId() > ptr.getId()) {
-            curr = curr.getParent();
+        Node p = node.parent;
+
+        while (p != null && p.key < node.key) {
+            p = p.parent;
         }
-        return curr;
+
+        return p;
     }
 
-    public Node max(Node ptr) {
-        if (ptr.getRight() == null) return ptr;
-        return max(ptr.getRight());
+    public static Node predecessor(Node node) {
+        if (node.left != null) {
+            return max(node.left);
+        }
+
+        Node p = node.parent;
+
+        while (p != null && p.key > node.key) {
+            p = p.parent;
+        }
+
+        return p;
     }
 
-    public Node min(Node ptr) {
-        if (ptr.getLeft() == null) return ptr;
-        return min(ptr.getLeft());
+    public static Node max(Node node) {
+        if (node.right == null) return node;
+        return max(node.right);
     }
 
-    public Node search(Node ptr, int key) {
-        if (ptr == null) return null;
-        if (ptr.getId() == key) return ptr;
-        else if (ptr.getId() < key) return search(ptr.getRight(), key);
-        else return search(ptr.getLeft(), key);
+    public static Node min(Node node) {
+        if (node.left == null) return node;
+        return min(node.left);
     }
 
-    public int height(Node ptr) {
-        if (ptr == null) return 0;
-        int left = height(ptr.getLeft()) + 1;
-        int right = height(ptr.getRight()) + 1;
+    public static Node search(Node tree, int key) {
+        if (tree == null) return null;
+        if (tree.key == key) return tree;
+        else if (tree.key < key) return search(tree.right, key);
+        else return search(tree.left, key);
+    }
+
+    public static int height(Node node) {
+        if (node == null) return 0;
+        int left = height(node.left) + 1;
+        int right = height(node.right) + 1;
         return Math.max(left, right);
     }
 
-    public void inOrder(Node ptr) {
-        if (ptr == null) return;
-        inOrder(ptr.getLeft());
-        System.out.print(ptr.getId() + " ");
-        inOrder(ptr.getRight());
+    public static void inOrder(Node node) {
+        Tree.inOrderHelper(node);
+        System.out.println();
+    }
+
+    private static void inOrderHelper(Node node) {
+        if (node == null) return;
+        inOrderHelper(node.left);
+        System.out.print(node.key + " ");
+        inOrderHelper(node.right);
     }
 }

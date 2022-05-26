@@ -11,24 +11,14 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Node {
+public class GNode {
 
     // identity
     private int id;
     private char label;
 
-    // ctor
-    public Node(int id) {
-        this.id = id;
-    }
-
-    // binary trees
-    private Node parent;
-    private Node left;
-    private Node right;
-
     // graph search
-    private List<Node> neighbors;
+    private List<GNode> neighbors;
     private int cost;       // cost from a start node
     private int group;      // group number for connected components
 

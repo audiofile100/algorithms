@@ -2,7 +2,7 @@ package graph;
 
 import ds.component.Edge;
 import ds.Graph;
-import ds.component.Node;
+import ds.component.GNode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -12,11 +12,11 @@ import java.util.PriorityQueue;
 public class FastDijkstra {
 
     private List<Character> visit;
-    private final PriorityQueue<Node> heap;
+    private final PriorityQueue<GNode> heap;
 
     public FastDijkstra() {
         visit = new ArrayList<>();
-        this.heap = new PriorityQueue<>(Comparator.comparingInt(Node::getScore));
+        this.heap = new PriorityQueue<>(Comparator.comparingInt(GNode::getScore));
     }
 
     public void fastDijkstra(Graph g) {
@@ -31,13 +31,13 @@ public class FastDijkstra {
         // --- end init
 
         while (!heap.isEmpty()) {
-            Node w = heap.poll();
+            GNode w = heap.poll();
             w.setLen(w.getScore());     // len(v) is the true shortest path dist(s, v)
             if (!visit.contains(w.getLabel())) {
                 visit.add(w.getLabel());    // save visit order
             }
             for (Edge e : w.getOutgoing()) {
-                Node y = g.getNode(e.getDestination());
+                GNode y = g.getNode(e.getDestination());
                 heap.remove(y);
                 y.setScore(Math.min(y.getScore(), w.getLen() + e.getWeight()));     // score is minimum dijkstra score of an edge with head w and tail in X
                 heap.add(y);

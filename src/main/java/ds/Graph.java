@@ -1,7 +1,7 @@
 package ds;
 
 import ds.component.Edge;
-import ds.component.Node;
+import ds.component.GNode;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class Graph {
 
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
-    private final Map<Integer, Node> map;
+    private final Map<Integer, GNode> map;
 
     @Setter(AccessLevel.NONE)
     private final int vertices;
@@ -25,11 +25,11 @@ public class Graph {
         this.vertices = vertices;
         map = new HashMap<>();
         for (int i = 0; i < vertices; i++) {
-            map.put(i, Node.builder().id(i).label((char) (i + 'A')).neighbors(new ArrayList<>()).outgoing(new ArrayList<>()).build());
+            map.put(i, GNode.builder().id(i).label((char) (i + 'A')).neighbors(new ArrayList<>()).outgoing(new ArrayList<>()).build());
         }
     }
 
-    public Node getNode(int id) {
+    public GNode getNode(int id) {
         return map.get(id);
     }
 
@@ -50,7 +50,7 @@ public class Graph {
     public void printGraph() {
         for (int i = 0; i < vertices; i++) {
             System.out.print(i + ": ");
-            for (Node n : map.get(i).getNeighbors()) {
+            for (GNode n : map.get(i).getNeighbors()) {
                 System.out.print("(" + i + ", " + n.getId() + ") ");
             }
             System.out.println();
@@ -69,7 +69,7 @@ public class Graph {
 
     public void printNodes() {
         for (int i = 0; i < vertices; i++) {
-            Node v = map.get(i);
+            GNode v = map.get(i);
             System.out.println("vertex: " + i + "\tlabel: " + v.getLabel() + "\tlen: " + v.getLen());
         }
     }
