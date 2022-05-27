@@ -1,4 +1,4 @@
-package ds;
+package algorithms_illuminated.ds;
 
 public class RedBlackTree {
     private enum Color {

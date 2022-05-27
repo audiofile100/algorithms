@@ -1,4 +1,4 @@
-package ds.component;
+package algorithms_illuminated.ds.component;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

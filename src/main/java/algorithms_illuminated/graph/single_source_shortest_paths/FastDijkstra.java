@@ -1,14 +1,20 @@
-package graph;
+package algorithms_illuminated.graph.single_source_shortest_paths;
 
-import ds.component.Edge;
-import ds.Graph;
-import ds.component.GNode;
+import algorithms_illuminated.ds.component.Edge;
+import algorithms_illuminated.ds.Graph;
+import algorithms_illuminated.ds.component.GNode;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+/**
+ * Optimal implementation of Dijkstra's Algorithm.
+ * Solves the single-source shortest-paths problem
+ * on any weighted directed graph. Weights must be
+ * non-negative.
+ */
 public class FastDijkstra {
 
     private List<Character> visit;
@@ -31,16 +37,16 @@ public class FastDijkstra {
         // --- end init
 
         while (!heap.isEmpty()) {
-            GNode w = heap.poll();
+            GNode w = heap.poll();      // O(1)
             w.setLen(w.getScore());     // len(v) is the true shortest path dist(s, v)
             if (!visit.contains(w.getLabel())) {
                 visit.add(w.getLabel());    // save visit order
             }
             for (Edge e : w.getOutgoing()) {
                 GNode y = g.getNode(e.getDestination());
-                heap.remove(y);
+                heap.remove(y);     // O(log n)
                 y.setScore(Math.min(y.getScore(), w.getLen() + e.getWeight()));     // score is minimum dijkstra score of an edge with head w and tail in X
-                heap.add(y);
+                heap.add(y);        // O(log n)
             }
         }
     }

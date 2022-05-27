@@ -1,7 +1,7 @@
-package ds;
+package algorithms_illuminated.ds;
 
-import ds.component.Edge;
-import ds.component.GNode;
+import algorithms_illuminated.ds.component.Edge;
+import algorithms_illuminated.ds.component.GNode;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;

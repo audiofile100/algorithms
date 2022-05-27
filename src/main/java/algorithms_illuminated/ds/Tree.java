@@ -1,4 +1,4 @@
-package ds;
+package algorithms_illuminated.ds;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
