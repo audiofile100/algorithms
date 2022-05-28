@@ -3,7 +3,7 @@ package algorithms_clrs.ds;
 /**
  * Min-heap property: each node is less than or equal to its children.
  */
-public class Heap {
+public class MinHeap {
 
     private int size = 0;
     private int capacity = 0;
@@ -11,7 +11,7 @@ public class Heap {
     private int[] heap = new int[capacity];
 
     public static void main(String[] args) {
-        Heap heap = new Heap();
+        MinHeap heap = new MinHeap();
         heap.offer(5);
         heap.offer(7);
         heap.poll();
@@ -141,11 +141,11 @@ public class Heap {
 
     private int leftChildIdx(int idx) {
         int left = (idx << 1) + 1;
-        return (left < size) ? left : -1;
+        return (idx >= 0 && left < size) ? left : -1;
     }
 
     private int rightChildIdx(int idx) {
         int right = (idx << 1) + 2;
-        return (right < size) ? right : -1;
+        return (idx >= 0 && right < size) ? right : -1;
     }
 }
