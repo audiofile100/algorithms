@@ -48,6 +48,10 @@ public class MaxHeap {
         return Math.max(size, 0);
     }
 
+    public Integer peek() {
+        return (size <= 0) ? null : heap[0];
+    }
+
     public boolean offer(int key) {
         if (size <= 0) return init(key);
         if (size == capacity) {
