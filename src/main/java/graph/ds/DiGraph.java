@@ -35,7 +35,7 @@ public class DiGraph {
     public Node get(int key) {
         return map.get(key);
     }
-    public Set<Integer> keys() { return map.keySet(); }
+    public Set<Integer> vertices() { return map.keySet(); }
 
     // --- print weighted graph
     public void print() {

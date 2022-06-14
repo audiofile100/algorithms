@@ -22,7 +22,7 @@ public class Topological {
 
     public void sort(DiGraph dag) {
 
-        for (int v : dag.keys()) {
+        for (int v : dag.vertices()) {
             if (!visited[v]) {
                 dfsTopo(dag, v);
             }
