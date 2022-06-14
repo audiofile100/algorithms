@@ -1,4 +1,4 @@
-package algoilluminated.graph.ds;
+package graph.ds;
 
 import lombok.Builder;
 
