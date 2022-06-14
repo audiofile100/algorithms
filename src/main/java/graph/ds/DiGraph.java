@@ -9,13 +9,13 @@ import java.util.*;
  */
 public class DiGraph {
     @Builder
-    private static class Edge {
+    public static class Edge {
         String src;
         String dest;
         int weight;
     }
     @Builder
-    private static class Node {
+    public static class Node {
         String key;
         List<Edge> outgoing;
     }
@@ -32,6 +32,10 @@ public class DiGraph {
         map.get(src).outgoing.add(edge);
     }
 
+    public Node get(String key) {
+        return map.get(key);
+    }
+
     // --- print weighted graph
     public void print() {
         for (Node vertex : map.values()) {
@@ -41,5 +45,6 @@ public class DiGraph {
             }
             System.out.println();
         }
+        System.out.println();
     }
 }

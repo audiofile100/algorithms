@@ -26,6 +26,10 @@ public class Graph {
         map.get(dest).neighbors.add(map.get(src));
     }
 
+    public Node get(String key) {
+        return map.get(key);
+    }
+
     // --- print graph
     public void print() {
         for (Node vertex : map.values()) {
@@ -35,5 +39,6 @@ public class Graph {
             }
             System.out.println();
         }
+        System.out.println();
     }
 }
