@@ -21,7 +21,7 @@ public class Graph {
         Arrays.stream(vertices).forEach(v -> map.put(v, Node.builder().key(v).neighbors(new ArrayList<>()).build()));
     }
 
-    public void addEdge(String src, String dest) {
+    public void connect(String src, String dest) {
         map.get(src).neighbors.add(map.get(dest));
         map.get(dest).neighbors.add(map.get(src));
     }

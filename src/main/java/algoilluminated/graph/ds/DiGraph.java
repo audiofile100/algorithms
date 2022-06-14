@@ -5,7 +5,7 @@ import lombok.Builder;
 import java.util.*;
 
 /**
- * Unweighted graph with directed egdes.
+ * Unweighted graph with directed edges.
  */
 public class DiGraph {
     @Builder
@@ -27,7 +27,7 @@ public class DiGraph {
         Arrays.stream(vertices).forEach(v -> map.put(v, Node.builder().key(v).outgoing(new ArrayList<>()).build()));
     }
 
-    public void addEdge(String src, String dest, int weight) {
+    public void edge(String src, String dest, int weight) {
         Edge edge = Edge.builder().src(src).dest(dest).weight(weight).build();
         map.get(src).outgoing.add(edge);
     }
