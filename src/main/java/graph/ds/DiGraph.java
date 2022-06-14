@@ -10,31 +10,32 @@ import java.util.*;
 public class DiGraph {
     @Builder
     public static class Edge {
-        String src;
-        String dest;
-        int weight;
+        public int src;
+        public int dest;
+        public int weight;
     }
     @Builder
     public static class Node {
-        String key;
-        List<Edge> outgoing;
+        public int key;
+        public List<Edge> outgoing;
     }
 
-    private final Map<String, Node> map;
+    private final Map<Integer, Node> map;
 
-    public DiGraph(String[] vertices) {
+    public DiGraph(int[] vertices) {
         map = new HashMap<>();
         Arrays.stream(vertices).forEach(v -> map.put(v, Node.builder().key(v).outgoing(new ArrayList<>()).build()));
     }
 
-    public void edge(String src, String dest, int weight) {
+    public void edge(int src, int dest, int weight) {
         Edge edge = Edge.builder().src(src).dest(dest).weight(weight).build();
         map.get(src).outgoing.add(edge);
     }
 
-    public Node get(String key) {
+    public Node get(int key) {
         return map.get(key);
     }
+    public Set<Integer> keys() { return map.keySet(); }
 
     // --- print weighted graph
     public void print() {

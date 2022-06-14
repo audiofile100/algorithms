@@ -9,24 +9,24 @@ import java.util.*;
  */
 public class Graph {
     @Builder
-    private static class Node {
-        String key;
-        List<Node> neighbors;
+    public static class Node {
+        public int key;
+        public List<Node> neighbors;
     }
 
-    private final Map<String, Node> map;
+    private final Map<Integer, Node> map;
 
-    public Graph(String[] vertices) {
+    public Graph(int[] vertices) {
         map = new HashMap<>();
         Arrays.stream(vertices).forEach(v -> map.put(v, Node.builder().key(v).neighbors(new ArrayList<>()).build()));
     }
 
-    public void connect(String src, String dest) {
+    public void connect(int src, int dest) {
         map.get(src).neighbors.add(map.get(dest));
         map.get(dest).neighbors.add(map.get(src));
     }
 
-    public Node get(String key) {
+    public Node get(int key) {
         return map.get(key);
     }
 

@@ -1,7 +1,10 @@
 package graph.sort;
 
 import graph.ds.DiGraph;
+import graph.ds.DiGraph.Edge;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -9,37 +12,63 @@ import java.util.List;
  */
 public class Topological {
 
-    public Topological() {
+    private final List<Integer> ordering;
+    private final boolean[] visited;
 
+    public Topological(int vertices) {
+        ordering = new ArrayList<>();
+        visited = new boolean[vertices];
     }
 
-    public List<String> sort(DiGraph.Node start) {
-        return null;
+    public void sort(DiGraph dag) {
+
+        for (int v : dag.keys()) {
+            if (!visited[v]) {
+                dfsTopo(dag, v);
+            }
+        }
+    }
+
+    public void dfsTopo(DiGraph dag, int vertex) {
+
+        visited[vertex] = true;
+        for (Edge e : dag.get(vertex).outgoing) {
+            if (!visited[e.dest]) {
+                dfsTopo(dag, e.dest);
+            }
+        }
+        ordering.add(vertex);
+    }
+
+    public List<Integer> getReverseOrder() {
+        Collections.reverse(ordering);
+        return ordering;
     }
 
     public static void main(String[] args) {
 
-        String[] vertices = { "A", "B", "C", "D", "E", "F", "G" };
+        int[] vertices = { 0, 1, 2, 3, 4, 5, 6 };
 
         DiGraph dag = new DiGraph(vertices);
-        dag.edge("B", "D", 1);
-        dag.edge("D", "F", 1);
-        dag.edge("F", "E", 1);
+        dag.edge(1, 3, 1);
+        dag.edge(1, 6, 1);
+        dag.edge(3, 5, 1);
+        dag.edge(6, 2, 1);
 
-        dag.edge("B", "G", 1);
-        dag.edge("G", "C", 1);
-        dag.edge("C", "E", 1);
+        dag.edge(0, 5, 1);
+        dag.edge(0, 2, 1);
 
-        dag.edge("A", "C", 1);
-        dag.edge("A", "F", 1);
-        dag.edge("F", "C", 1);
+        dag.edge(5, 4, 1);
+        dag.edge(5, 2, 1);
+
+        dag.edge(2, 4, 1);
 
         dag.print();
 
-        DiGraph.Node start = dag.get("B");
+        Topological topological = new Topological(vertices.length);
+        topological.sort(dag);
 
-        Topological topological = new Topological();
-        List<String> ordering = topological.sort(start);
+        List<Integer> ordering = topological.getReverseOrder();
 
         System.out.println("topological sort ordering: " + ordering);
     }
