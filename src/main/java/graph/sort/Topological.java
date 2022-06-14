@@ -29,7 +29,7 @@ public class Topological {
         }
     }
 
-    public void dfsTopo(DiGraph dag, int vertex) {
+    private void dfsTopo(DiGraph dag, int vertex) {
 
         visited[vertex] = true;
         for (Edge e : dag.get(vertex).outgoing) {
