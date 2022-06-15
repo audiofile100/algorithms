@@ -18,6 +18,8 @@ public class DiGraph {
     public static class Node {
         public int key;
         public List<Edge> outgoing;
+        // --- Dijkstra Score
+        public int score;
     }
 
     private final Map<Integer, Node> map;
@@ -39,8 +41,9 @@ public class DiGraph {
 
     // --- print weighted graph
     public void print() {
+        System.out.println("n,s: (u,v,w)...");
         for (Node vertex : map.values()) {
-            System.out.print(vertex.key + ": ");
+            System.out.print(vertex.key + "," + vertex.score + ": ");
             for (Edge e : vertex.outgoing) {
                 System.out.print("(" + e.src + "," + e.dest + "," + e.weight + ")");
             }
