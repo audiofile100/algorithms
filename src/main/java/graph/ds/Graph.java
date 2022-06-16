@@ -10,6 +10,8 @@ public class Graph {
         public int src;
         public int dest;
         public int weight;
+        @Override
+        public String toString() { return "(" + src + "," + dest + "," + weight + ") "; }
     }
     @Builder
     public static class Node {
@@ -57,7 +59,7 @@ public class Graph {
         for (Node v : map.values()) {
             System.out.print(v.key + "," + v.score + ": ");
             for (Edge e : v.outgoing) {
-                System.out.print("(" + e.src + "," + e.dest + "," + e.weight + ") ");
+                System.out.print(e);
             }
             System.out.println();
         }
