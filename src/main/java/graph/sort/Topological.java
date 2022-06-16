@@ -1,7 +1,7 @@
 package graph.sort;
 
-import graph.ds.DiGraph;
-import graph.ds.DiGraph.Edge;
+import graph.ds.Graph;
+import graph.ds.Graph.Edge;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,7 +20,7 @@ public class Topological {
         visited = new boolean[vertices];
     }
 
-    public void sort(DiGraph dag) {
+    public void sort(Graph dag) {
 
         for (int v : dag.vertices()) {
             if (!visited[v]) {
@@ -29,7 +29,7 @@ public class Topological {
         }
     }
 
-    private void dfsTopo(DiGraph dag, int vertex) {
+    private void dfsTopo(Graph dag, int vertex) {
 
         visited[vertex] = true;
         for (Edge e : dag.get(vertex).outgoing) {
@@ -49,7 +49,7 @@ public class Topological {
 
         int[] vertices = { 0, 1, 2, 3, 4, 5, 6 };
 
-        DiGraph dag = new DiGraph(vertices);
+        Graph dag = new Graph(vertices);
         dag.edge(1, 3, 1);
         dag.edge(1, 6, 1);
         dag.edge(3, 5, 1);

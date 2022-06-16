@@ -1,8 +1,8 @@
 package graph.ss;
 
-import graph.ds.DiGraph;
-import graph.ds.DiGraph.Edge;
-import graph.ds.DiGraph.Node;
+import graph.ds.Graph;
+import graph.ds.Graph.Edge;
+import graph.ds.Graph.Node;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
@@ -14,20 +14,20 @@ import java.util.PriorityQueue;
  */
 public class FastDijkstra {
 
-    public void fastDijkstra(DiGraph g, int src) {
+    public void fastDijkstra(Graph g, int src) {
 
-        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a.score));
-        pq.add(g.get(src));
+        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(v -> v.score));
 
-        // --- init scores
+        // --- init
         g.vertices().forEach(v -> g.get(v).score = Integer.MAX_VALUE);
         g.get(src).score = 0;
-        // --- end init scores
+        pq.add(g.get(src));
+        // --- end init
 
         while (!pq.isEmpty()) {
-            Node n = pq.poll();
-            for (Edge e : n.outgoing) {
-                g.get(e.dest).score = n.score + e.weight;
+            Node v = pq.poll();
+            for (Edge e : v.outgoing) {
+                g.get(e.dest).score = v.score + e.weight;
                 pq.add(g.get(e.dest));
             }
         }
@@ -37,7 +37,7 @@ public class FastDijkstra {
 
         int[] vertices = { 0, 1, 2, 3 };
 
-        DiGraph dg = new DiGraph(vertices);
+        Graph dg = new Graph(vertices);
         dg.edge(0, 1, 1);
         dg.edge(0, 2, 4);
         dg.edge(1, 2, 2);

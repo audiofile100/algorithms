@@ -5,4 +5,5 @@ package graph.search;
  * to every other vertex.
  */
 public class BFS {
+
 }
