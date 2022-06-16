@@ -6,7 +6,7 @@ public class Utils {
 
     /**
      * Undirected Weighted Graph.
-     * 6 vertices, MST: 14
+     * 6 vertices, 10 edges, MST: 14
      * @return connected undirected weighted graph
      */
     public static Graph defaultUG() {
@@ -20,6 +20,7 @@ public class Utils {
         ug.connect(1, 3, 1);
         ug.connect(1, 4, 2);
         ug.connect(1, 5, 3);
+        ug.connect(1, 2, 5);
         ug.connect(2, 5, 4);
         ug.connect(3, 4, 2);
         ug.connect(4, 5, 4);
