@@ -1,7 +1,7 @@
 package graph.sort;
 
 import graph.ds.Graph;
-import graph.ds.Graph.Edge;
+import graph.ds.Graph.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

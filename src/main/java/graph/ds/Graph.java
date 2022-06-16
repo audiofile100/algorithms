@@ -48,6 +48,7 @@ public class Graph {
     }
 
     public Node get(int key) { return map.get(key); }
+    public int size() { return map.size(); }
     public Set<Integer> vertices() { return map.keySet(); }
 
     // --- print graph

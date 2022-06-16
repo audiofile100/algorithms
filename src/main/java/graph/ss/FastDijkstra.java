@@ -1,8 +1,7 @@
 package graph.ss;
 
 import graph.ds.Graph;
-import graph.ds.Graph.Edge;
-import graph.ds.Graph.Node;
+import graph.ds.Graph.*;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
