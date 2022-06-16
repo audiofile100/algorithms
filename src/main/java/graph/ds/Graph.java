@@ -15,7 +15,7 @@ public class Graph {
     public static class Node {
         public int key;
         public List<Edge> outgoing;
-        // --- Dijkstra Score
+        // --- utility field (e.g. Dijkstra's Score)
         public int score;
     }
 
@@ -47,9 +47,7 @@ public class Graph {
         map.get(src).outgoing.add(Edge.builder().src(src).dest(dest).weight(weight).build());
     }
 
-    public Node get(int key) {
-        return map.get(key);
-    }
+    public Node get(int key) { return map.get(key); }
     public Set<Integer> vertices() { return map.keySet(); }
 
     // --- print graph
