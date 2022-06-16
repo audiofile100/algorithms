@@ -19,6 +19,8 @@ public class Graph {
         public List<Edge> outgoing;
         // --- utility field (e.g. Dijkstra's Score)
         public int score;
+        @Override
+        public String toString() { return key + "," + score + ": "; }
     }
 
     private final Map<Integer, Node> map;
@@ -55,9 +57,8 @@ public class Graph {
 
     // --- print graph
     public void print() {
-        System.out.println("n,s: (u,v,w)...");
         for (Node v : map.values()) {
-            System.out.print(v.key + "," + v.score + ": ");
+            System.out.print(v);
             for (Edge e : v.outgoing) {
                 System.out.print(e);
             }

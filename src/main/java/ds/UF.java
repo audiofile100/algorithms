@@ -1,4 +1,4 @@
-package ds.uf;
+package ds;
 
 public class UF {
 
@@ -22,7 +22,7 @@ public class UF {
     }
 
     public int find(int p) {
-        while (p != id[p]) p = id[p];   // follows links to find root: O(n)
+        while (p != id[p]) p = id[p];   // follows links to find root
         return p;
     }
 
