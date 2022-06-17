@@ -17,7 +17,7 @@ public class Graph {
     public static class Node {
         public int key;
         public List<Edge> outgoing;
-        // --- utility field (e.g. Dijkstra's Score)
+        // --- utility field (e.g. Dijkstra's Score or weight of vertex etc...)
         public int score;
         @Override
         public String toString() { return key + "," + score + ": "; }
