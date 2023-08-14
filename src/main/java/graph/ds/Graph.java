@@ -19,6 +19,11 @@ public class Graph {
         public List<Edge> outgoing;
         // --- utility field (e.g. Dijkstra's Score or weight of vertex etc...)
         public int score;
+
+        // --- cycle detection
+        public boolean visiting;
+        public boolean visited;
+
         @Override
         public String toString() { return key + "," + score + ": "; }
     }
