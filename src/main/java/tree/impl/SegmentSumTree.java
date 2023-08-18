@@ -54,16 +54,4 @@ public class SegmentSumTree extends SegmentTree {
             tree[v] = tree[left(v)] + tree[right(v)];
         }
     }
-
-    public static void main(String[] args) {
-
-        int[] data = { 1, 2, 3, 4, 5 };
-
-        SegmentTree tree = new SegmentSumTree(data);
-        tree.print();
-        System.out.println(tree.get(0, 2));
-        tree.update(2, 1);
-        tree.print();
-        System.out.println(tree.get(0, 2));
-    }
 }
