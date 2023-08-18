@@ -2,18 +2,17 @@ package tree.ds;
 
 public class SegmentSumTree {
 
-    private int[] stree;
-    private int[] data;
-    private int n;
-    private int begin;
-    private int end;
+    private final int[] stree;
+    private final int[] data;
+    private final int begin;
+    private final int end;
 
     public SegmentSumTree(int[] data) {
         this.data = data;
-        n = data.length;
-        stree = new int[4 * n];
+        stree = new int[4 * data.length];
+
         begin = 0;
-        end = n-1;
+        end = data.length-1;
 
         build(1, begin, end);
     }
