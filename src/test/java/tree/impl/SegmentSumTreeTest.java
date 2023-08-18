@@ -1,12 +1,13 @@
-package tree;
+package tree.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import tree.impl.SegmentSumTree;
+import tree.SegmentTree;
+import tree.SegmentTreeTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SegmentSumTreeTest {
+public class SegmentSumTreeTest extends SegmentTreeTest {
 
     private int[] data;
     private SegmentTree tree;
