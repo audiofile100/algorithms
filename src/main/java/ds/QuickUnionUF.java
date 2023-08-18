@@ -1,11 +1,14 @@
 package ds;
 
-public class UF {
+/**
+ * Quick Union (Sedgewick p.224)
+ */
+public class QuickUnionUF {
 
     private final int[] id;
     private int count;
 
-    public UF(int N) {
+    public QuickUnionUF(int N) {
         count = N;
         id = new int[N];
         for (int i = 0; i < N; i++)

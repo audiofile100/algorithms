@@ -2,7 +2,7 @@ package graph.mst;
 
 import graph.ds.Graph;
 import graph.ds.Graph.*;
-import ds.UF;
+import ds.QuickUnionUF;
 import utils.Utils;
 
 import java.util.*;
@@ -11,7 +11,7 @@ public class Kruskal {
 
     public List<Edge> mst(Graph g) {
 
-        UF uf = new UF(g.size());
+        QuickUnionUF uf = new QuickUnionUF(g.size());
         List<Edge> edges = new ArrayList<>(g.vertices().stream().map(v -> g.get(v).outgoing).flatMap(Collection::stream).toList());
         edges.sort(Comparator.comparingInt(a -> a.weight));
 
