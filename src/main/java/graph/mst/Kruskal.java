@@ -1,5 +1,6 @@
 package graph.mst;
 
+import ds.UnionFind;
 import graph.ds.Graph;
 import graph.ds.Graph.*;
 import ds.impl.QuickUnion;
@@ -11,7 +12,7 @@ public class Kruskal {
 
     public List<Edge> mst(Graph g) {
 
-        QuickUnion uf = new QuickUnion(g.size());
+        UnionFind uf = new QuickUnion(g.size());
         List<Edge> edges = new ArrayList<>(g.vertices().stream().map(v -> g.get(v).outgoing).flatMap(Collection::stream).toList());
         edges.sort(Comparator.comparingInt(a -> a.weight));
 

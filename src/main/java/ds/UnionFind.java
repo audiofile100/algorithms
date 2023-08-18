@@ -24,7 +24,7 @@ public abstract class UnionFind {
 
     public abstract void union(int u, int v);
 
-    protected abstract int find(int p);
+    public abstract int find(int p);
 
     public boolean connected(int u, int v) {
         return find(u) == find(v);
