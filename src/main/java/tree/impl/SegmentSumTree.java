@@ -1,19 +1,11 @@
-package tree;
+package tree.impl;
 
-public class SegmentSumTree {
+import tree.SegmentTree;
 
-    private final int[] tree;
-    private final int[] data;
-    private final int begin;
-    private final int end;
+public class SegmentSumTree extends SegmentTree {
 
     public SegmentSumTree(int[] data) {
-        this.data = data;
-        tree = new int[4 * data.length];
-
-        begin = 0;
-        end = data.length-1;
-
+        super(data);
         build(1, begin, end);
     }
 
@@ -28,7 +20,8 @@ public class SegmentSumTree {
         }
     }
 
-    public int subArraySum(int L, int R) {
+    @Override
+    public int get(int L, int R) {
         return subArraySum(1, begin, end, L, R);
     }
 
@@ -40,10 +33,10 @@ public class SegmentSumTree {
             return tree[v];
         }
         int mid = lo + (hi - lo) / 2;
-        return subArraySum(2*v, lo, mid, L, Math.min(R, mid))
-                + subArraySum(2*v+1, mid+1, hi, Math.max(L, mid+1), R);
+        return subArraySum(2*v, lo, mid, L, Math.min(R, mid)) + subArraySum(2*v+1, mid+1, hi, Math.max(L, mid+1), R);
     }
 
+    @Override
     public void update(int idx, int val) {
         update(1, begin, end, idx, val);
     }
@@ -62,22 +55,15 @@ public class SegmentSumTree {
         }
     }
 
-    public void print() {
-        for (int j : tree) {
-            System.out.print(j + " ");
-        }
-        System.out.println();
-    }
-
     public static void main(String[] args) {
 
         int[] data = { 1, 2, 3, 4, 5 };
 
-        SegmentSumTree tree = new SegmentSumTree(data);
+        SegmentTree tree = new SegmentSumTree(data);
         tree.print();
-        System.out.println(tree.subArraySum(0, 2));
+        System.out.println(tree.get(0, 2));
         tree.update(2, 1);
         tree.print();
-        System.out.println(tree.subArraySum(0, 2));
+        System.out.println(tree.get(0, 2));
     }
 }

@@ -1,21 +1,11 @@
-package tree;
+package tree.impl;
 
-public class SegmentMinTree {
+import tree.SegmentTree;
 
-    private final int[] data;
-    private final int[] tree;
-
-    private final int begin;
-    private final int end;
+public class SegmentMinTree extends SegmentTree {
 
     public SegmentMinTree(int[] data) {
-        this.data = data;
-
-        begin = 0;
-        end = data.length-1;
-
-        tree = new int[4 * data.length];
-
+        super(data);
         build(1, begin, end);
     }
 
@@ -30,7 +20,8 @@ public class SegmentMinTree {
         }
     }
 
-    public int minSubArray(int L, int R) {
+    @Override
+    public int get(int L, int R) {
         return minSubArray(1, begin, end, L, R);
     }
 
@@ -44,6 +35,7 @@ public class SegmentMinTree {
         }
     }
 
+    @Override
     public void update(int idx, int val) {
         update(1, begin, end, idx, val);
     }
@@ -62,23 +54,16 @@ public class SegmentMinTree {
         }
     }
 
-    public void print() {
-        for (int val : tree) {
-            System.out.print(val + " ");
-        }
-        System.out.println();
-    }
-
     public static void main(String[] args) {
 
         int[] data = { 1, 8, 3, 4, 5, 6, 7 };
 
-        SegmentMinTree tree = new SegmentMinTree(data);
+        SegmentTree tree = new SegmentMinTree(data);
         tree.print();
-        System.out.println(tree.minSubArray(1, 4));
+        System.out.println(tree.get(1, 4));
         tree.update(2, 10);
         tree.print();
-        System.out.println(tree.minSubArray(1, 4));
-        System.out.println(tree.minSubArray(0, data.length-1));
+        System.out.println(tree.get(1, 4));
+        System.out.println(tree.get(0, data.length-1));
     }
 }
