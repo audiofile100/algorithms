@@ -2,14 +2,14 @@ package tree.ds;
 
 public class SegmentSumTree {
 
-    private final int[] stree;
+    private final int[] tree;
     private final int[] data;
     private final int begin;
     private final int end;
 
     public SegmentSumTree(int[] data) {
         this.data = data;
-        stree = new int[4 * data.length];
+        tree = new int[4 * data.length];
 
         begin = 0;
         end = data.length-1;
@@ -19,12 +19,12 @@ public class SegmentSumTree {
 
     private void build(int v, int lo, int hi) {
         if (lo == hi) {
-            stree[v] = data[lo];
+            tree[v] = data[lo];
         } else {
             int mid = (lo + hi) / 2;
             build( 2*v, lo, mid);
             build(2*v+1, mid+1, hi);
-            stree[v] = stree[2*v] + stree[2*v+1];
+            tree[v] = tree[2*v] + tree[2*v+1];
         }
     }
 
@@ -37,7 +37,7 @@ public class SegmentSumTree {
             return 0;
         }
         if (L == lo && R == hi) {
-            return stree[v];
+            return tree[v];
         }
         int mid = (lo + hi) / 2;
         return subArraySum(2*v, lo, mid, L, Math.min(R, mid))
@@ -50,7 +50,7 @@ public class SegmentSumTree {
 
     private void update(int v, int lo, int hi, int idx, int val) {
         if (lo == hi) {
-            stree[v] = val;
+            tree[v] = val;
         } else {
             int mid = (lo + hi) / 2;
             if (idx <= mid) {
@@ -58,12 +58,12 @@ public class SegmentSumTree {
             } else {
                 update(2*v+1, mid+1, hi, idx, val);
             }
-            stree[v] = stree[2*v] + stree[2*v+1];
+            tree[v] = tree[2*v] + tree[2*v+1];
         }
     }
 
     public void print() {
-        for (int j : stree) {
+        for (int j : tree) {
             System.out.print(j + " ");
         }
         System.out.println();
@@ -73,11 +73,11 @@ public class SegmentSumTree {
 
         int[] data = { 1, 3, -2, 8, -7 };
 
-        SegmentSumTree stree = new SegmentSumTree(data);
-        stree.print();
-        System.out.println(stree.subArraySum(0, 2));
-        stree.update(2, 1);
-        stree.print();
-        System.out.println(stree.subArraySum(0, 2));
+        SegmentSumTree tree = new SegmentSumTree(data);
+        tree.print();
+        System.out.println(tree.subArraySum(0, 2));
+        tree.update(2, 1);
+        tree.print();
+        System.out.println(tree.subArraySum(0, 2));
     }
 }
