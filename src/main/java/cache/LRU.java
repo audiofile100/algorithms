@@ -1,4 +1,4 @@
-package misc.cache;
+package cache;
 
 import lombok.Builder;
 

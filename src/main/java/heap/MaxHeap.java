@@ -1,4 +1,4 @@
-package heap.ds;
+package heap;
 
 public class MaxHeap {
 }

@@ -1,4 +1,4 @@
-package tree.ds;
+package tree;
 
 import lombok.Builder;
 
