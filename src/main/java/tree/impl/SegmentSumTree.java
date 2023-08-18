@@ -14,9 +14,9 @@ public class SegmentSumTree extends SegmentTree {
             tree[v] = data[lo];
         } else {
             int mid = lo + (hi - lo) / 2;
-            build( 2*v, lo, mid);
-            build(2*v+1, mid+1, hi);
-            tree[v] = tree[2*v] + tree[2*v+1];
+            build( left(v), lo, mid);
+            build(right(v), mid+1, hi);
+            tree[v] = tree[left(v)] + tree[right(v)];
         }
     }
 
@@ -33,7 +33,7 @@ public class SegmentSumTree extends SegmentTree {
             return tree[v];
         }
         int mid = lo + (hi - lo) / 2;
-        return subArraySum(2*v, lo, mid, L, Math.min(R, mid)) + subArraySum(2*v+1, mid+1, hi, Math.max(L, mid+1), R);
+        return subArraySum(left(v), lo, mid, L, Math.min(R, mid)) + subArraySum(right(v), mid+1, hi, Math.max(L, mid+1), R);
     }
 
     @Override
@@ -47,11 +47,11 @@ public class SegmentSumTree extends SegmentTree {
         } else {
             int mid = lo + (hi - lo) / 2;
             if (idx <= mid) {
-                update(2*v, lo, mid, idx, val);
+                update(left(v), lo, mid, idx, val);
             } else {
-                update(2*v+1, mid+1, hi, idx, val);
+                update(right(v), mid+1, hi, idx, val);
             }
-            tree[v] = tree[2*v] + tree[2*v+1];
+            tree[v] = tree[left(v)] + tree[right(v)];
         }
     }
 

@@ -14,24 +14,24 @@ public class SegmentMinTree extends SegmentTree {
             tree[v] = data[lo];
         } else {
             int mid = lo + (hi - lo) / 2;
-            build(2*v, lo, mid);
-            build(2*v+1, mid+1, hi);
-            tree[v] = Math.min(tree[2*v], tree[2*v+1]);
+            build(left(v), lo, mid);
+            build(right(v), mid+1, hi);
+            tree[v] = Math.min(tree[left(v)], tree[right(v)]);
         }
     }
 
     @Override
     public int get(int L, int R) {
-        return minSubArray(1, begin, end, L, R);
+        return subArrayMin(1, begin, end, L, R);
     }
 
-    private int minSubArray(int v, int lo, int hi, int L, int R) {
+    private int subArrayMin(int v, int lo, int hi, int L, int R) {
         if (L > R) return Integer.MAX_VALUE;
         if (L == lo && R == hi) {
             return tree[v];
         } else {
             int mid = lo + (hi - lo) / 2;
-            return Math.min(minSubArray(2*v, lo, mid, L, Math.min(mid, R)), minSubArray(2*v+1, mid+1, hi, Math.max(L, mid+1), R));
+            return Math.min(subArrayMin(left(v), lo, mid, L, Math.min(mid, R)), subArrayMin(right(v), mid+1, hi, Math.max(L, mid+1), R));
         }
     }
 
@@ -46,11 +46,11 @@ public class SegmentMinTree extends SegmentTree {
         } else {
             int mid = lo + (hi - lo) / 2;
             if (idx <= mid) {
-                update(2*v, lo, mid, idx, val);
+                update(left(v), lo, mid, idx, val);
             } else {
-                update(2*v+1, mid+1, hi, idx, val);
+                update(right(v), mid+1, hi, idx, val);
             }
-            tree[v] = Math.min(tree[2*v], tree[2*v+1]);
+            tree[v] = Math.min(tree[left(v)], tree[right(v)]);
         }
     }
 
