@@ -1,7 +1,9 @@
 package tree.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import tree.SegmentTree;
 
+@Slf4j
 public class SegmentSumTree extends SegmentTree {
 
     public SegmentSumTree(int[] data) {
@@ -14,7 +16,7 @@ public class SegmentSumTree extends SegmentTree {
             tree[v] = data[lo];
         } else {
             int mid = lo + (hi - lo) / 2;
-            build( left(v), lo, mid);
+            build(left(v), lo, mid);
             build(right(v), mid+1, hi);
             tree[v] = tree[left(v)] + tree[right(v)];
         }
@@ -30,6 +32,7 @@ public class SegmentSumTree extends SegmentTree {
             return 0;
         }
         if (L == lo && R == hi) {
+            System.out.println("returning: " + tree[v]);
             return tree[v];
         }
         int mid = lo + (hi - lo) / 2;
@@ -53,5 +56,11 @@ public class SegmentSumTree extends SegmentTree {
             }
             tree[v] = tree[left(v)] + tree[right(v)];
         }
+    }
+
+    public static void main(String[] args) {
+
+        SegmentTree st = new SegmentSumTree(new int[] { 1, 2, 3, 4, 5 });
+        st.get(1, 3);
     }
 }
