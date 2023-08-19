@@ -1,6 +1,7 @@
 package graph.mst;
 
 import ds.UnionFind;
+import ds.impl.WeightedUnion;
 import graph.ds.Graph;
 import graph.ds.Graph.*;
 import ds.impl.QuickUnion;
@@ -8,11 +9,16 @@ import utils.Utils;
 
 import java.util.*;
 
+/**
+ * Greedily constructs spanning tree one edge
+ * at a time. Able to grow multiple trees in
+ * parallel using union find to avoid cycles.
+ */
 public class Kruskal {
 
     public List<Edge> mst(Graph g) {
 
-        UnionFind uf = new QuickUnion(g.size());
+        UnionFind uf = new WeightedUnion(g.size());
         List<Edge> edges = new ArrayList<>(g.vertices().stream().map(v -> g.get(v).outgoing).flatMap(Collection::stream).toList());
         edges.sort(Comparator.comparingInt(a -> a.weight));
 

@@ -6,6 +6,13 @@ import utils.Utils;
 
 import java.util.*;
 
+/**
+ * Greedily constructs minimum spanning tree
+ * by always choosing the cheapest edges and
+ * adding the node to a Set. The set is used
+ * to avoid cycles. Starting node can be
+ * chosen arbitrarily.
+ */
 public class Prim {
 
     public List<Edge> mst(Graph ug, int start) {

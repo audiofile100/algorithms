@@ -24,8 +24,11 @@ public class Graph {
         public boolean visiting;
         public boolean visited;
 
+        // --- number of incoming edges
+        public int incoming;
+
         @Override
-        public String toString() { return key + "," + score + ": "; }
+        public String toString() { return "{key: " + key + ", in: " + incoming + ", score: " + score + "} "; }
     }
 
     private final Map<Integer, Node> map;
@@ -44,6 +47,8 @@ public class Graph {
     public void connect(int src, int dest, int weight) {
         map.get(src).outgoing.add(Edge.builder().src(src).dest(dest).weight(weight).build());
         map.get(dest).outgoing.add(Edge.builder().src(dest).dest(src).weight(weight).build());
+        incrementIncoming(dest);
+        incrementIncoming(src);
     }
 
     /**
@@ -54,6 +59,7 @@ public class Graph {
      */
     public void edge(int src, int dest, int weight) {
         map.get(src).outgoing.add(Edge.builder().src(src).dest(dest).weight(weight).build());
+        incrementIncoming(dest);
     }
 
     public Node get(int key) { return map.get(key); }
@@ -70,5 +76,9 @@ public class Graph {
             System.out.println();
         }
         System.out.println();
+    }
+
+    private void incrementIncoming(int key) {
+        ++map.get(key).incoming;
     }
 }
