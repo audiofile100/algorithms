@@ -16,10 +16,17 @@ import java.util.*;
  */
 public class Kruskal {
 
-    public List<Edge> mst(Graph g) {
+    private final UnionFind uf;
+    private final Graph graph;
 
-        UnionFind uf = new WeightedUnion(g.size());
-        List<Edge> edges = new ArrayList<>(g.vertices().stream().map(v -> g.get(v).outgoing).flatMap(Collection::stream).toList());
+    public Kruskal(Graph graph) {
+        this.graph = graph;
+        this.uf = new WeightedUnion(graph.size());
+    }
+
+    public List<Edge> mst() {
+
+        List<Edge> edges = new ArrayList<>(graph.vertices().stream().map(v -> graph.get(v).outgoing).flatMap(Collection::stream).toList());
         edges.sort(Comparator.comparingInt(a -> a.weight));
 
         List<Edge> mst = new ArrayList<>();
@@ -34,13 +41,17 @@ public class Kruskal {
         return mst;
     }
 
+    public boolean isConnected() {
+        return uf.getCount() == 1;
+    }
+
     public static void main(String[] args) {
 
         Graph ug = Utils.defaultUG();
         ug.print();
 
-        Kruskal kruskal = new Kruskal();
-        List<Edge> mst = kruskal.mst(ug);
+        Kruskal kruskal = new Kruskal(ug);
+        List<Edge> mst = kruskal.mst();
 
         mst.forEach(System.out::print);
         int cost = mst.stream().map(c -> c.weight).reduce(0, Integer::sum);
