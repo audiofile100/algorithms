@@ -7,14 +7,15 @@ import core.design.pattern.behavioral.state.impl.WaitingState;
 import core.design.pattern.behavioral.state.service.State;
 import lombok.Getter;
 
+@Getter
 public class SodaMachine {
 
-    @Getter private State soldOutState;
-    @Getter private State waitingState;
-    @Getter private State readyState;
-    @Getter private State soldState;
+    private final State soldOutState;
+    private final State waitingState;
+    private final State readyState;
+    private final State soldState;
 
-    @Getter private int inventory = 0;
+    private int inventory = 0;
 
     private State state;
 
