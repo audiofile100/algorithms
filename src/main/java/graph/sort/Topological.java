@@ -13,17 +13,15 @@ import java.util.List;
 public class Topological {
 
     private final List<Integer> ordering;
-    private final boolean[] visited;
 
-    public Topological(int vertices) {
+    public Topological() {
         ordering = new ArrayList<>();
-        visited = new boolean[vertices];
     }
 
     public void sort(Graph dag) {
 
         for (int v : dag.vertices()) {
-            if (!visited[v]) {
+            if (!dag.get(v).visited) {
                 dfsTopo(dag, v);
             }
         }
@@ -31,9 +29,9 @@ public class Topological {
 
     private void dfsTopo(Graph dag, int vertex) {
 
-        visited[vertex] = true;
+        dag.get(vertex).visited = true;
         for (Edge e : dag.get(vertex).outgoing) {
-            if (!visited[e.dest]) {
+            if (!dag.get(e.dest).visited) {
                 dfsTopo(dag, e.dest);
             }
         }
@@ -65,7 +63,7 @@ public class Topological {
 
         dag.print();
 
-        Topological topological = new Topological(vertices.length);
+        Topological topological = new Topological();
         topological.sort(dag);
 
         List<Integer> ordering = topological.getReverseOrder();

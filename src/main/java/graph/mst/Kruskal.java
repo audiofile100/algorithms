@@ -4,8 +4,7 @@ import ds.UnionFind;
 import ds.impl.WeightedUnion;
 import graph.ds.Graph;
 import graph.ds.Graph.*;
-import ds.impl.QuickUnion;
-import utils.Utils;
+import util.Utils;
 
 import java.util.*;
 

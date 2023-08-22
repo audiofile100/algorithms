@@ -2,7 +2,7 @@ package graph.mst;
 
 import graph.ds.Graph;
 import graph.ds.Graph.*;
-import utils.Utils;
+import util.Utils;
 
 import java.util.*;
 
