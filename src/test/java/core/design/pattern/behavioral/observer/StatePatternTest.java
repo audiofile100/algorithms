@@ -13,6 +13,7 @@ public class StatePatternTest {
         sodaMachine = new SodaMachine(3);
     }
 
+    // TODO: make soda machine return boolean for testing
     @Test
     public void sodaMachineTest() {
 
