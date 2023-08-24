@@ -33,11 +33,19 @@ public class Graph {
 
     private final Map<Integer, Node> map;
 
+    /**
+     * Initializes a graph using int[] vertices as node keys.
+     * @param vertices labels for nodes of the graph.
+     */
     public Graph(int[] vertices) {
         map = new HashMap<>();
         Arrays.stream(vertices).forEach(v -> map.put(v, Node.builder().key(v).outgoing(new ArrayList<>()).build()));
     }
 
+    /**
+     * Initializes a graph with nodes labeled from 0 to n-1.
+     * @param n the number of nodes.
+     */
     public Graph(int n) {
         map = new HashMap<>();
         for (int i = 0; i < n; i++) {
