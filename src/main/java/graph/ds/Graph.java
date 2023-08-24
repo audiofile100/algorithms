@@ -38,10 +38,17 @@ public class Graph {
         Arrays.stream(vertices).forEach(v -> map.put(v, Node.builder().key(v).outgoing(new ArrayList<>()).build()));
     }
 
+    public Graph(int n) {
+        map = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            map.put(i, Node.builder().key(i).outgoing(new ArrayList<>()).build());
+        }
+    }
+
     /**
      * Creates a weighted edge in both directions for undirected graphs.
-     * @param src source node
-     * @param dest destination node
+     * @param src source node key
+     * @param dest destination node key
      * @param weight edge weight
      */
     public void connect(int src, int dest, int weight) {
@@ -52,13 +59,35 @@ public class Graph {
     }
 
     /**
+     * Creates a zero weighted edge in both directions for undirected graphs.
+     * @param src source node key
+     * @param dest destination node key
+     */
+    public void connect(int src, int dest) {
+        map.get(src).outgoing.add(Edge.builder().src(src).dest(dest).weight(0).build());
+        map.get(dest).outgoing.add(Edge.builder().src(dest).dest(src).weight(0).build());
+        incrementIncoming(dest);
+        incrementIncoming(src);
+    }
+
+    /**
      * Creates a weighted edge in one direction for directed graphs.
-     * @param src source node
-     * @param dest destination node
+     * @param src source node key
+     * @param dest destination node key
      * @param weight edge weight
      */
     public void edge(int src, int dest, int weight) {
         map.get(src).outgoing.add(Edge.builder().src(src).dest(dest).weight(weight).build());
+        incrementIncoming(dest);
+    }
+
+    /**
+     * Creates a zero weighted edge in one direction for directed graphs.
+     * @param src source node key
+     * @param dest destination node key
+     */
+    public void edge(int src, int dest) {
+        map.get(src).outgoing.add(Edge.builder().src(src).dest(dest).weight(0).build());
         incrementIncoming(dest);
     }
 
