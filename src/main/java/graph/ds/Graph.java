@@ -3,6 +3,7 @@ package graph.ds;
 import lombok.Builder;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Graph {
     @Builder
@@ -97,6 +98,15 @@ public class Graph {
     public void edge(int src, int dest) {
         map.get(src).outgoing.add(Edge.builder().src(src).dest(dest).weight(0).build());
         incrementIncoming(dest);
+    }
+
+    /*
+     * Gets all the root vertices as a set.
+     * A root vertex is one with zero incoming edges.
+     * @return Set of keys
+     */
+    public Set<Integer> rootVerticesSet() {
+        return map.values().stream().filter(node -> node.incoming == 0).map(node -> node.key).collect(Collectors.toSet());
     }
 
     public Node get(int key) { return map.get(key); }
