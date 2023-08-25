@@ -23,12 +23,12 @@ public class TopologicalSortTest {
 
         graph = new Graph(new int[] { 0, 1, 2, 3, 4, 5 });
 
-        graph.edge(3, 1, 0);
-        graph.edge(2, 3, 0);
-        graph.edge(4, 0, 0);
-        graph.edge(4, 1, 0);
-        graph.edge(5, 0, 0);
-        graph.edge(5, 2, 0);
+        graph.edge(3, 1);
+        graph.edge(2, 3);
+        graph.edge(4, 0);
+        graph.edge(4, 1);
+        graph.edge(5, 0);
+        graph.edge(5, 2);
 
         InputStream in = getClass().getClassLoader().getResourceAsStream("topological-sort-test-all-orderings.txt");
         assertNotNull(in);
