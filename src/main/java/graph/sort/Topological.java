@@ -20,6 +20,8 @@ public class Topological {
 
     public void sort(Graph dag) {
 
+        ordering.clear();
+
         for (int v : dag.vertices()) {
             if (!dag.get(v).visited) {
                 dfsTopo(dag, v);
@@ -48,18 +50,18 @@ public class Topological {
         int[] vertices = { 0, 1, 2, 3, 4, 5, 6 };
 
         Graph dag = new Graph(vertices);
-        dag.edge(1, 3, 1);
-        dag.edge(1, 6, 1);
-        dag.edge(3, 5, 1);
-        dag.edge(6, 2, 1);
+        dag.edge(1, 3);
+        dag.edge(1, 6);
+        dag.edge(3, 5);
+        dag.edge(6, 2);
 
-        dag.edge(0, 5, 1);
-        dag.edge(0, 2, 1);
+        dag.edge(0, 5);
+        dag.edge(0, 2);
 
-        dag.edge(5, 4, 1);
-        dag.edge(5, 2, 1);
+        dag.edge(5, 4);
+        dag.edge(5, 2);
 
-        dag.edge(2, 4, 1);
+        dag.edge(2, 4);
 
         dag.print();
 
