@@ -1,4 +1,4 @@
-package core.design.pattern.behavioral.observer;
+package core.design.pattern.behavioral.state;
 
 import core.design.pattern.behavioral.state.SodaMachine;
 import org.junit.jupiter.api.BeforeEach;
