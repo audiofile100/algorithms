@@ -6,4 +6,8 @@ package graph.ss;
  * may be negative.
  */
 public class BellmanFord {
+
+    public BellmanFord() {
+
+    }
 }
