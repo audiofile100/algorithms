@@ -18,6 +18,7 @@ public class Graph {
     public static class Node {
         public int key;
         public List<Edge> outgoing;
+
         // --- utility field (e.g. Dijkstra's Score or weight of vertex etc...)
         public int score;
 
