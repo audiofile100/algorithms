@@ -4,6 +4,8 @@ import graph.ds.Graph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class FastDijkstraTest {
 
     private FastDijkstra fastDijkstra;
@@ -14,7 +16,7 @@ public class FastDijkstraTest {
     }
 
     @Test
-    public void fastDijsktraTest() {
+    public void fastDijkstraTest() {
 
         Graph g = new Graph(5);
         g.edge(0, 1, 10);
@@ -24,6 +26,12 @@ public class FastDijkstraTest {
         g.edge(3, 4, 9);
 
         fastDijkstra.fastDijkstra(g, 0);
+
+        assertEquals(0, g.get(0).score);
+        assertEquals(10, g.get(1).score);
+        assertEquals(1, g.get(2).score);
+        assertEquals(11, g.get(3).score);
+        assertEquals(20, g.get(4).score);
 
         g.print();
     }
