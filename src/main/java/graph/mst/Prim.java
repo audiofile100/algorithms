@@ -15,16 +15,16 @@ import java.util.*;
  */
 public class Prim {
 
-    public List<Edge> mst(Graph ug, int start) {
+    public List<Edge> mst(Graph graph, int start) {
 
         List<Edge> mst = new ArrayList<>();
         PriorityQueue<Edge> pq = new PriorityQueue<>(Comparator.comparingInt(e -> e.weight));
         Set<Integer> set = new HashSet<>();
         set.add(start);
 
-        Node v = ug.get(start);
+        Node v = graph.get(start);
 
-        while (set.size() < ug.size()) {
+        while (set.size() < graph.size()) {
             for (Edge e : v.outgoing) {
                 if (!set.contains(e.dest)) {
                     pq.add(e);
@@ -37,7 +37,7 @@ public class Prim {
             assert e != null;
             set.add(e.dest);
             mst.add(e);
-            v = ug.get(e.dest);
+            v = graph.get(e.dest);
         }
 
         return mst;
