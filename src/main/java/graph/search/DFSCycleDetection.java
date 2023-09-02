@@ -3,18 +3,28 @@ package graph.search;
 import graph.ds.Graph;
 import graph.ds.Graph.Edge;
 
+import java.util.Set;
+
 /**
  * Created by mg on 8/19/2023.
  */
 public class DFSCycleDetection {
 
-    private final Graph graph;
+    public DFSCycleDetection() { }
 
-    public DFSCycleDetection(Graph graph) {
-        this.graph = graph;
+    public boolean hasCycle(Graph graph) {
+
+        Set<Integer> vertices = graph.vertices();
+        for (int v : vertices) {
+            if (!graph.get(v).visited && hasCycle(graph, v)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public boolean hasCycle(int v) {
+    private boolean hasCycle(Graph graph, int v) {
 
         graph.get(v).visiting = true;
 
@@ -22,7 +32,7 @@ public class DFSCycleDetection {
             if (graph.get(e.dest).visiting) {
                 return true;
             }
-            if (!graph.get(e.dest).visited && hasCycle(e.dest)) {
+            if (!graph.get(e.dest).visited && hasCycle(graph, e.dest)) {
                 return true;
             }
         }
@@ -31,5 +41,19 @@ public class DFSCycleDetection {
         graph.get(v).visited = true;
 
         return false;
+    }
+
+    public static void main(String[] args) {
+
+        Graph graph = new Graph(4);
+        graph.edge(0, 1);
+        graph.edge(1, 2);
+        graph.edge(2, 0);
+        graph.edge(2, 3);
+
+        DFSCycleDetection cd = new DFSCycleDetection();
+        boolean result = cd.hasCycle(graph);
+
+        System.out.println(result);
     }
 }
