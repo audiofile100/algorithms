@@ -20,9 +20,9 @@ public class SieveOfEratosthenes {
         Arrays.fill(prime, true);
         prime[0] = prime[1] = false;
 
-        for (int p = 2; p < prime.length; p++) {
-            if (prime[p] && p*p <= n) {
-                for (int j = p*p; j < prime.length; j += p) {
+        for (int i = 2; i*i <= n; i++) {
+            if (prime[i]) {
+                for (int j = i*i; j <= n; j += i) {
                     prime[j] = false;
                 }
             }
